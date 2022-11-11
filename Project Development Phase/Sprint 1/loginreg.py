@@ -42,7 +42,7 @@ def login():
             return render_template("dashboard.html",email=request.form['email'],msg=msg)
         else:
             msg="Incorrect Email/Password"
-    return render_template('login.html',msg=msg)
+    return render_template('signup.html',msg=msg)
 
 @app.route("/register",methods=["GET","POST"])
 def register():
