@@ -118,19 +118,18 @@ const updateBalance = (e) => {
 	})
 }
 
-const openBalPopup = (e) => {
-	var modal = document.getElementById("myModal");
-	var btn = document.getElementById("myBtn");
-	var span = document.getElementsByClassName("close")[0];
-	btn.onclick = function() {
-		modal.style.display = "block";
-		document.querySelector("body").style.overflow="hidden";
-	}
-	span.onclick = function() {
-		modal.style.display = "none";
-		document.querySelector("body").style.overflow="unset";
-	}
+const BalancePopup = (props) => (
+	<form onsubmit={updateBalance} style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)">
+		<h1>Login</h1>
+		<label for="amount"><b>Amount</b></label>
+		<input type="number" placeholder="Enter Amount" name="amount" required />
+		<button type="submit" class="btn">Login</button>
+		<button type="button" class="btn cancel" onclick={delParent}>Close</button>
+	</form>
+)
 
+const openBalPopup = (e) => {
+	document.querySelector("body").appendChild(<BalancePopup />)
 }
 
 const logout = () => {
@@ -142,12 +141,59 @@ const logout = () => {
 	})
 }
 
+
+const data = {
+	labels: [
+		"Food",
+		"Entertainment",
+		"Shopping",
+		"EMI",
+		"Rent",
+		"Others"
+	],
+	datasets: [{
+		label: 'Expenses',
+		data: [0,0,0,0,0,0],
+		fill: true,
+		backgroundColor: 'rgba(255, 99, 132, 0.2)',
+		borderColor: 'rgb(255, 99, 132)',
+		pointBackgroundColor: 'rgb(255, 99, 132)',
+		pointBorderColor: '#fff',
+		pointHoverBackgroundColor: '#fff',
+		pointHoverBorderColor: 'rgb(255, 99, 132)'
+	}]
+};
+
+const config = {
+	type: 'radar',
+	data: data,
+	options: {
+		elements: {
+			line: {
+				borderWidth: 3
+			}
+		},
+		scale: {
+			min: 0
+		},
+	},
+};
+
+const loadGraph = () => {
+	fetch("http://localhost:5000/api/expenses_by_category")
+	.then(body=>body.json())
+	.then((x)=>{
+		config.data.datasets[0].data = [x.food, x.entertainment, x.shopping, x.emi, x.rent, x.others]
+		window.myRadar = new Chart(document.getElementById("canvas"), config);
+	})
+};
+
 const main = () => {
 	displayBalance()
-	displayTransactions()
 	displayName()
+	loadGraph()
 }
 
-window.onload = main
+window.onload = main;
 
-main()
+main();

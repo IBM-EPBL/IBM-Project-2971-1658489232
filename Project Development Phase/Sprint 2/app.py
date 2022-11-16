@@ -20,6 +20,10 @@ def home():
 def dash():
     return render_template('dashboard.html')
 
+@app.route('/graph')
+def graph():
+    return render_template('graph.html')
+
 @app.route('/display')
 def display():
     print (session["email"],session["id"])
@@ -108,6 +112,22 @@ def view_expense():
         return json.dumps(ret)
     return json.dumps({"msg": "Invalid session: Log in"});
 
+@app.route("/api/expenses_by_category", methods=["GET"])
+def view_expense_by_catergory():
+    if "id" in session.keys():
+        user = session["id"]
+        sql_stmt="SELECT category, SUM(amount) as amount from expenses where expenses.user=? and amount>0 group by category"
+        stmt=ibm_db.prepare(conn,sql_stmt)
+        ibm_db.bind_param(stmt,1,user)
+        ibm_db.execute(stmt)
+        row = ibm_db.fetch_assoc(stmt)
+        ret = {"food":0,"entertainment":0,"shopping":0, "emi": 0, "rent":0, "others": 0}
+        while row != False:
+            ret[row["CATEGORY"]]= row["AMOUNT"]
+            row = ibm_db.fetch_assoc(stmt)
+        return json.dumps(ret)
+    return json.dumps({"msg": "Invalid session: Log in"});
+
 @app.route("/api/balance", methods=["GET"])
 def view_balance():
     if "id" in session.keys():
@@ -118,7 +138,7 @@ def view_balance():
         ibm_db.execute(stmt)
         row = ibm_db.fetch_assoc(stmt)
         ret = {};
-        if row != False:
+        if row != False and row["BALANCE"]!=None:
             ret["balance"]= -row["BALANCE"];
         else:
             ret["balance"]= 0;
