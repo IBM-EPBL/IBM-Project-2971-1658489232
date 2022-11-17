@@ -23,7 +23,9 @@
 				</div>
 				<div class="app-header-navigation">
 					<div class="tabs">
-						<h1>If you are saving, you are succeeding...</h1>
+						<marquee direction="right">
+							<h1>
+								If you are saving, you are succeeding...</h1></marquee>
 					</div>
 				</div>
 				<div class="app-header-actions">
@@ -64,13 +66,13 @@
 				<div class="app-body-main-content">
 					<section class="service-section">
 						<h2>Expenses</h2>
-						<div class="service-section-header">
+						<!-- <div class="service-section-header">
 							<div class="search-field">
 								<i class="ph-magnifying-glass"></i>
 								<input type="text" placeholder="Account number">
-							</div>
+							</div> -->
 							<!-- For Joint account drop down based on account number -->
-							<div class="dropdown-field">
+							<!-- <div class="dropdown-field">
 								<i class="ph-caret-down"></i>
 							</div>
 							<button class="flat-button">
@@ -81,7 +83,7 @@
 							<button class="flat-button">
 								Toggle search
 							</button>
-						</div>
+						</div> -->
 						<div class="tiles">
 							<article class="tile">
 								<div class="tile-header">
@@ -288,9 +290,7 @@
 									</span>
 									<div>
 										<span id="balance">Loading...</span>
-										<button class="icon-button">
-											<i class="ph-caret-right-bold"></i>
-										</button>
+										
 									</div>
 								</div>
 							</div>
@@ -359,5 +359,18 @@
 			<script src='https://unpkg.com/phosphor-icons'></script>
 			<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 			<script type="text/babel" src="{{ url_for('static', filename='/js/script.dashboard.js') }}"></script>
+			<script>
+				window.watsonAssistantChatOptions = {
+				  integrationID: "8f7293cb-e55e-49e7-a937-915057242eca", // The ID of this integration.
+				  region: "au-syd", // The region your integration is hosted in.
+				  serviceInstanceID: "68106b4c-302a-41d4-bdf5-00458ba09a25", // The ID of your service instance.
+				  onLoad: function(instance) { instance.render(); }
+				};
+				setTimeout(function(){
+				  const t=document.createElement('script');
+				  t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+				  document.head.appendChild(t);
+				});
+			  </script>
 	</body>
 </html>

@@ -135,5 +135,18 @@
 			<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 			<script type="text/babel" src="{{ url_for('static', filename='/js/script.graph.js') }}"></script>
+			<script>
+				window.watsonAssistantChatOptions = {
+				  integrationID: "8f7293cb-e55e-49e7-a937-915057242eca", // The ID of this integration.
+				  region: "au-syd", // The region your integration is hosted in.
+				  serviceInstanceID: "68106b4c-302a-41d4-bdf5-00458ba09a25", // The ID of your service instance.
+				  onLoad: function(instance) { instance.render(); }
+				};
+				setTimeout(function(){
+				  const t=document.createElement('script');
+				  t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js";
+				  document.head.appendChild(t);
+				});
+			  </script>
 	</body>
 </html>

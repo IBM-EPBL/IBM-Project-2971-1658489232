@@ -163,6 +163,7 @@ def clear_session():
     return json.dumps({"Success":True})
 
 def send(user, email):
+    print(email)
     sql_stmt="SELECT SUM(amount) as balance from expenses where expenses.user=?"
     stmt=ibm_db.prepare(conn,sql_stmt)
     ibm_db.bind_param(stmt,1,user)
@@ -174,7 +175,7 @@ def send(user, email):
                      to_emails=email,
                      subject='ALERT!! Budget Exceeded!',
                      plain_text_content='Budget has been crossed for this month',
-                     html_content='<strong>Hi user,<br> You have crossed your budget for this month. ---you  have made max expenditure in so and so category! Its a remainder for you to start saving!  </strong>')
+                     html_content='<strong>Hi user,<br>You have crossed your budget for this month.Its a remainder for you to start saving!</strong>')
         try:
             """sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))"""
             sg = SendGridAPIClient('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')
