@@ -18,3 +18,12 @@ will receive an email notification.
 - Paarush Senthilkumar
 - Ramya N
 - Sidarth Saikumar
+
+### URL link for 'The Wallet' (Personal Expense Tracker Web Application) hosted:
+http://169.51.203.16:30001/
+
+### YOUTUBE VIDEO LINK FOR DEMO OF PROJECT:
+https://youtu.be/P4DBpuNBTVQ
+
+### GOOGLE DRIVE LINK FOR DEMO OF PROJECT:
+https://drive.google.com/file/d/1ymUZLHBiw9YxtkuBQgX7KvVLA8aQrT0q/view?usp=sharing
